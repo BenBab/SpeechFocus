@@ -2,12 +2,11 @@ import "react-native-gesture-handler";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 
-import { useState, useEffect, useReducer } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { useEffect, useReducer } from "react";
+
 import * as ScreenOrientation from "expo-screen-orientation";
-import * as Speech from "expo-speech";
+
 import Ionicons from "@expo/vector-icons/Ionicons";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -18,27 +17,39 @@ import {
   DrawerContentComponentProps,
 } from "@react-navigation/drawer";
 import { Level } from "./screens/Level/Level";
+import { Landing } from "./screens/Landing/LandingScreen";
 
 const Drawer = createDrawerNavigator();
 
 const levels = [
   {
     id: 1,
-    words: ["Ah", "ay", "at", "ack", "ba", "be", "ch", "ca"],
+    words: ["Ah", "ay", "at", "ack", "ba", "be", "cha", "cah", "der", "day"],
     description:
       "Level 1. We are going to start with small similar sounds which will exercise the mouth and tongue. Practice saying this many times in a row before moving to another set. The first sound is .... ",
   },
   {
     id: 2,
-    words: ["are", "", "", "", "ben", "boo", "bow", "car", "can"],
+    words: [
+      "are",
+      "air",
+      "ate",
+      "add",
+      "ben",
+      "boo",
+      "bow",
+      "car",
+      "can",
+      "drew",
+    ],
     description:
       "Level 2. In this exercise we wil focus on one syllable words. Again practice each word multiple times before moving on .. The first word is .... ",
   },
   {
     id: 3,
-    words: ["ant", "", "", "", "ben", "boo", "bow", "car", "can"],
+    words: ["ant", "ape", "axe", "able", "bear", "boo", "bow", "car", "can"],
     description:
-      "Level 3. In this exercise we wil focus slightly more tricky one syllable words, and a few 2 syllable words. Practice each word multiple times before moving on .. The first word is ....",
+      "Level 3. In this exercise we will focus on slightly more tricky one syllable words, and a few 2 syllable words. Practice each word multiple times before moving on .. The first word is ....",
   },
 ];
 
@@ -72,6 +83,9 @@ const DrawerNavigation = () => {
         },
       }}
     >
+      <Drawer.Screen name={`Home`}>
+        {(props) => <Landing {...props} />}
+      </Drawer.Screen>
       {levels.map((level) => (
         <Drawer.Screen
           key={level.id}

@@ -34,7 +34,6 @@ export const Level = ({
 
   useEffect(() => {
     if (isFocused && !isDescriptionMuted) {
-      console.log("isFocused ", isFocused, level.id);
       speakDescription();
     }
   }, [isFocused]);
