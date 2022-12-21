@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SpeechFocus",
-    "slug": "SpeechFocus",
+    "slug": "speechfocus",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,7 +25,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.ben.b.speechfocus"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -37,6 +38,12 @@
           "initialOrientation": "LANDSCAPE"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "56967b15-ad6d-4bac-b99e-c3126280e202"
+      }
+    },
+    "owner": "ben.b"
   }
 }
