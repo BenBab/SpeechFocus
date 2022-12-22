@@ -15,35 +15,35 @@ const exercises = [
     title: "Tongue In-and-Outs",
     description:
       "Tongue In-and-Outs...Stick your tongue out and hold it for 2 seconds, then pull it back in. Hold for 2 seconds, and repeat. This helps train your tongue to move with coordinated patterns, which will help you produce better speech. It's best to do all of these speech therapy exercises in front of the mirror so that you can get visual feedback.",
-    image: require(`../../assets/exercises-tongue-out.jpg`),
+    image: require(`../../assets/exercises-tongue-out.png`),
   },
   {
     id: 2,
     title: "Tongue Side-to-Side",
     description:
       "Tongue Side-to-Side...For this speech therapy exercise, open your mouth and move your tongue to touch the right corner of your mouth. Hold for 2 seconds, then touch the left corner of your mouth. Hold for 2 seconds, and repeat.",
-    image: require(`../../assets/tongue-side-to-side.png`),
+    image: require(`../../assets/exercises-tongue-side-to-side.png`),
   },
   {
     id: 3,
     title: "Tongue Up-and-Down",
     description:
       "Tongue Up-and-Down... Open your mouth and stick your tongue out. Then, reach your tongue up toward your nose. Hold for 2 seconds, then reach your tongue down toward your chin. Hold for 2 seconds, and repeat.",
-    image: require(`../../assets/tongue-nose.png`),
+    image: require(`../../assets/exercises-tongue-nose.png`),
   },
   {
     id: 4,
     title: "Say Cheese!",
     description:
       "Say Cheese!...Here’s another simple speech therapy exercise that improves oral motor skills. Practice smiling in front of a mirror. Smile, then relax. Repeat as much as you can stand. The mirror is important because it provides feedback, which is fuel for your brain!",
-    image: require(`../../assets/exercises-cheese-smile.jpg`),
+    image: require(`../../assets/exercises-cheese-smile.png`),
   },
   {
     id: 5,
     title: "Practice Your Kissy Face",
     description:
       "Practice Your Kissy Face...When you’re done practicing those smiles, try making kissy faces by puckering your lips. Pucker your lips together, then relax. Repeat as often as you can. You should slow down the movement for even better control.",
-    image: require(`../../assets/exercises-kissy-face.jpg`),
+    image: require(`../../assets/exercises-kissy-face.png`),
   },
 ];
 
