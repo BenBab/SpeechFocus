@@ -1,6 +1,4 @@
 import "react-native-gesture-handler";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
 
 import { useEffect, useReducer } from "react";
 
@@ -18,13 +16,65 @@ import {
 } from "@react-navigation/drawer";
 import { Level } from "./screens/Level/Level";
 import { Landing } from "./screens/Landing/LandingScreen";
+import { Exercises } from "./screens/Exercises/Exercises";
 
 const Drawer = createDrawerNavigator();
 
 const levels = [
   {
     id: 1,
-    words: ["Ah", "ay", "at", "ack", "ba", "be", "cha", "cah", "der", "day"],
+    words: [
+      "Ah",
+      "ay",
+      "at",
+      "ack",
+      "ba",
+      "be",
+      "cha",
+      "che",
+      "cah",
+      "der",
+      "day",
+      "fi",
+      "fee",
+      "fo",
+      "gah",
+      "hi",
+      "ho",
+      "jay",
+      "ku",
+      "ko",
+      "la",
+      "lee",
+      "lo",
+      "lu",
+      "ma",
+      "mo",
+      "moo",
+      "na",
+      "no",
+      "new",
+      "pa",
+      "po",
+      "pu",
+      "ra",
+      "re",
+      "ru",
+      "sa",
+      "see",
+      "so",
+      "shy",
+      "she",
+      "ta",
+      "to",
+      "vi",
+      "vo",
+      "wee",
+      "wo",
+      "ze",
+      "zoo",
+      "",
+    ],
     description:
       "Level 1. We are going to start with small similar sounds which will exercise the mouth and tongue. Practice saying this many times in a row before moving to another set. The first sound is .... ",
   },
@@ -38,16 +88,114 @@ const levels = [
       "ben",
       "boo",
       "bow",
+      "bath",
       "car",
       "can",
+      "cash",
+      "chip",
       "drew",
+      "duck",
+      "end",
+      "film",
+      "flash",
+      "gang",
+      "gold",
+      "hat",
+      "hair",
+      "hard",
+      "king",
+      "kid",
+      "lamp",
+      "like",
+      "lift",
+      "moon",
+      "meet",
+      "mean",
+      "night",
+      "note",
+      "pile",
+      "play",
+      "pop",
+      "red",
+      "rate",
+      "rose",
+      "seem",
+      "sell",
+      "show",
+      "sole",
+      "suit",
+      "tax",
+      "tile",
+      "tea",
+      "tell",
+      "task",
+      "team",
+      "tune",
+      "van",
+      "view",
+      "wall",
+      "well",
+      "want",
+      "wait",
+      "will",
+      "work",
+      "wine",
+      "yard",
+      "zone",
+      "",
     ],
     description:
       "Level 2. In this exercise we wil focus on one syllable words. Again practice each word multiple times before moving on .. The first word is .... ",
   },
   {
     id: 3,
-    words: ["ant", "ape", "axe", "able", "bear", "boo", "bow", "car", "can"],
+    words: [
+      "acid",
+      "axe",
+      "able",
+      "bear",
+      "blood",
+      "blind",
+      "charge",
+      "candle",
+      "cheque",
+      "drift",
+      "doubt",
+      "fierce",
+      "faction",
+      "grand",
+      "green",
+      "kitchen",
+      "laugh",
+      "league",
+      "match",
+      "moist",
+      "noise",
+      "nature",
+      "nuclear",
+      "number",
+      "prince",
+      "prompt",
+      "quick",
+      "rush",
+      "route",
+      "sheep",
+      "shelf",
+      "smoke",
+      "snap",
+      "stock",
+      "straight",
+      "teach",
+      "theme",
+      "throw",
+      "throat",
+      "voice",
+      "watch",
+      "warmth",
+      "wound",
+      "youth",
+      "yield",
+    ],
     description:
       "Level 3. In this exercise we will focus on slightly more tricky one syllable words, and a few 2 syllable words. Practice each word multiple times before moving on .. The first word is ....",
   },
@@ -85,6 +233,27 @@ const DrawerNavigation = () => {
     >
       <Drawer.Screen name={`Home`}>
         {(props) => <Landing {...props} />}
+      </Drawer.Screen>
+      <Drawer.Screen
+        name={`Exercises`}
+        options={{
+          headerRight: () => (
+            <Ionicons.Button
+              name={isDescriptionMuted ? "volume-mute" : "volume-high"}
+              backgroundColor="white"
+              color="#000"
+              borderRadius={50}
+              onPress={toggleIsDescriptionMuted}
+              iconStyle={{
+                paddingLeft: 10,
+              }}
+            />
+          ),
+        }}
+      >
+        {(props) => (
+          <Exercises {...props} isDescriptionMuted={isDescriptionMuted} />
+        )}
       </Drawer.Screen>
       {levels.map((level) => (
         <Drawer.Screen

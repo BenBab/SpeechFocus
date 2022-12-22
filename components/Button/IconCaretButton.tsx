@@ -1,11 +1,5 @@
-import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 
-import * as Speech from "expo-speech";
-import { LevelType } from "../../App";
-import { DrawerContentComponentProps } from "@react-navigation/drawer";
-
-import { useIsFocused, useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 type IconCaretButtonProps = {

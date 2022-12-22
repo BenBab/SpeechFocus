@@ -24,6 +24,7 @@ export const Level = ({
 
   const isFocused = useIsFocused();
   const word = level.words[wordIndex];
+  const exerciseEnd = word === "";
 
   const speakDescription = async () => {
     const thingToSay = level.description;
@@ -34,12 +35,13 @@ export const Level = ({
 
   useEffect(() => {
     if (isFocused && !isDescriptionMuted) {
+      Speech.stop();
       speakDescription();
     }
   }, [isFocused]);
 
   useEffect(() => {
-    if (!isDescriptionMuted) {
+    if (isFocused && !isDescriptionMuted) {
       setTimeout(
         () =>
           Speech.speak(word, {
@@ -48,7 +50,7 @@ export const Level = ({
         300
       );
     }
-  }, [word]);
+  }, [word, isFocused]);
 
   useEffect(() => {
     if (isDescriptionMuted) {
@@ -56,11 +58,24 @@ export const Level = ({
     }
   }, [isDescriptionMuted]);
 
+  useEffect(() => {
+    if (isFocused && exerciseEnd) {
+      const thingToSay = `Well Done! Level ${
+        level.id
+      } completed. Take a break before moving on to level ${level.id + 1} `;
+      Speech.speak(thingToSay, {
+        language: "en-AU",
+      });
+    }
+  }, [wordIndex]);
+
   const onNextPress = () => {
+    Speech.stop();
     setWordIndex((prevWord) => prevWord + 1);
   };
 
   const onBackPress = () => {
+    Speech.stop();
     setWordIndex((prevWord) => prevWord - 1);
   };
 
@@ -73,23 +88,38 @@ export const Level = ({
   return (
     <View>
       <View style={styles.container}>
-        {/* <Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
-      <Button title="Press to hear some words" onPress={speak} /> */}
         <IconCaretButton
           direction="caret-back"
           handleOnPress={onBackPress}
           isDisabled={wordIndex === 0}
         />
         <Text style={styles.hugeText}>{word}</Text>
+        {exerciseEnd && (
+          <View>
+            <Text style={styles.mediumText}>
+              Well Done! Level {level.id} complete
+            </Text>
+            <Button
+              title={`Move on to level ${level.id + 1}`}
+              onPress={() => {
+                Speech.stop();
+                setWordIndex(0);
+                navigation.jumpTo(`Level ${level.id + 1}`);
+              }}
+            />
+          </View>
+        )}
         <IconCaretButton
           direction="caret-forward"
           handleOnPress={onNextPress}
           isDisabled={wordIndex === level.words.length - 1}
         />
       </View>
-      <View style={styles.playSoundBtn}>
-        <Button title="Play sound" onPress={onPlaySoundPress} />
-      </View>
+      {!exerciseEnd && (
+        <View style={styles.playSoundBtn}>
+          <Button title="Play sound" onPress={onPlaySoundPress} />
+        </View>
+      )}
     </View>
   );
 };
@@ -104,6 +134,11 @@ const styles = StyleSheet.create({
   hugeText: {
     fontSize: 100,
     fontWeight: "bold",
+  },
+  mediumText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    paddingBottom: 20,
   },
   playSoundBtn: {
     display: "flex",
