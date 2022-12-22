@@ -27,7 +27,10 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.ben.b.speechfocus",
-      "permissions": ["com.google.android.gms.permission.AD_ID"]
+      "permissions": [
+        "com.google.android.gms.permission.AD_ID"
+      ],
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
