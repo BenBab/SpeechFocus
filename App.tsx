@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 import * as ScreenOrientation from "expo-screen-orientation";
 
@@ -17,6 +17,8 @@ import {
 import { Level } from "./screens/Level/Level";
 import { Landing } from "./screens/Landing/LandingScreen";
 import { Exercises } from "./screens/Exercises/Exercises";
+import { useIsTablet } from "./utils/hooks/useIsTablet";
+import { View } from "react-native";
 
 const Drawer = createDrawerNavigator();
 
@@ -288,15 +290,29 @@ const DrawerNavigation = () => {
 };
 
 export default function App() {
+  const isTablet = useIsTablet();
+
+  console.log("🚀 isTablet", isTablet);
+
+  const [isOrientationLocked, setIsOrientationLocked] = useState(false);
+
   async function changeScreenOrientationToLandscape() {
+    await ScreenOrientation.getOrientationAsync();
+
+    await ScreenOrientation.unlockAsync();
     await ScreenOrientation.lockAsync(
       ScreenOrientation.OrientationLock.LANDSCAPE_LEFT
     );
+    setIsOrientationLocked(true);
   }
 
   useEffect(() => {
     changeScreenOrientationToLandscape();
   }, []);
+
+  if (!isOrientationLocked) {
+    return null;
+  }
 
   return (
     <NavigationContainer>

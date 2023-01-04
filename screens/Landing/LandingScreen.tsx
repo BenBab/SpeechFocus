@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { VariableSizeButton } from "../../components/Button/VariableSizeButton";
 import { useIsTablet } from "../../utils/hooks/useIsTablet";
+import { useGetDimensions } from "../../utils/hooks/useGetDimensions";
 
 type LandingProps = {
   navigation: DrawerContentComponentProps["navigation"];
@@ -10,6 +11,8 @@ type LandingProps = {
 
 export const Landing = ({ navigation }: LandingProps) => {
   const isTablet = useIsTablet();
+  const { height, width } = useGetDimensions();
+
   return (
     <View style={styles.container}>
       <Text style={[styles.heading, { fontSize: isTablet ? 80 : 45 }]}>

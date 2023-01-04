@@ -1,14 +1,15 @@
 import React from "react";
 import { Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { useGetDimensions } from "../../utils/hooks/useGetDimensions";
 import { useIsTablet } from "../../utils/hooks/useIsTablet";
-
-const { height } = Dimensions.get("screen");
 
 export const VariableSizeButton = (props) => {
   const isTablet = useIsTablet();
+  const { height, width } = useGetDimensions();
 
   const { onPress, title = "Save" } = props;
-
+  console.log("🚀 ~ file: VariableSizeButton.tsx:7 ~ width", width);
+  console.log("🚀 ~ file: VariableSizeButton.tsx:22 ~ height", height);
   return (
     <TouchableOpacity
       style={[styles.button, { height: height * 0.15 }]}
