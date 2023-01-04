@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+} from "react-native";
 
 import * as Speech from "expo-speech";
 import { LevelType } from "../../App";
@@ -8,6 +15,8 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 
 import { IconCaretButton } from "../../components/Button/IconCaretButton";
+import { VariableSizeButton } from "../../components/Button/VariableSizeButton";
+import { useIsTablet } from "../../utils/hooks/useIsTablet";
 
 type LevelProps = {
   navigation: DrawerContentComponentProps["navigation"];
@@ -20,6 +29,7 @@ export const Level = ({
   level,
   isDescriptionMuted,
 }: LevelProps) => {
+  const isTablet = useIsTablet();
   const [wordIndex, setWordIndex] = useState(0);
 
   const isFocused = useIsFocused();
@@ -86,14 +96,16 @@ export const Level = ({
   };
 
   return (
-    <View>
+    <View style={styles.appWrapper}>
       <View style={styles.container}>
         <IconCaretButton
           direction="caret-back"
           handleOnPress={onBackPress}
           isDisabled={wordIndex === 0}
         />
-        <Text style={styles.hugeText}>{word}</Text>
+        <Text style={[styles.hugeText, { fontSize: isTablet ? 150 : 100 }]}>
+          {word}
+        </Text>
         {exerciseEnd && (
           <View>
             <Text style={styles.mediumText}>
@@ -117,7 +129,7 @@ export const Level = ({
       </View>
       {!exerciseEnd && (
         <View style={styles.playSoundBtn}>
-          <Button title="Play sound" onPress={onPlaySoundPress} />
+          <VariableSizeButton title="Play sound" onPress={onPlaySoundPress} />
         </View>
       )}
     </View>
@@ -125,6 +137,12 @@ export const Level = ({
 };
 
 const styles = StyleSheet.create({
+  appWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     display: "flex",
     flexDirection: "row",

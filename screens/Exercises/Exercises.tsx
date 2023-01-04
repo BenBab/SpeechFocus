@@ -8,13 +8,15 @@ import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import { useIsFocused } from "@react-navigation/native";
 
 import { IconCaretButton } from "../../components/Button/IconCaretButton";
+import { VariableSizeButton } from "../../components/Button/VariableSizeButton";
+import { useIsTablet } from "../../utils/hooks/useIsTablet";
 
 const exercises = [
   {
     id: 1,
     title: "Tongue In-and-Outs",
     description:
-      "Tongue In-and-Outs...Stick your tongue out and hold it for 2 seconds, then pull it back in. Hold for 2 seconds, and repeat. This helps train your tongue to move with coordinated patterns, which will help you produce better speech. It's best to do all of these speech therapy exercises in front of the mirror so that you can get visual feedback.",
+      "Welcome to speech therapy mouth exercises. We will start with Tongue In-and-Outs...Stick your tongue out and hold it for 2 seconds, then pull it back in. Hold for 2 seconds, and repeat. This helps train your tongue to move with coordinated patterns, which will help you produce better speech. It's best to do all of these speech therapy exercises in front of the mirror so that you can get visual feedback.",
     image: require(`../../assets/exercises-tongue-out.png`),
   },
   {
@@ -56,6 +58,7 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
   const [exerciseIndex, setExerciseIndex] = useState(0);
 
   const isFocused = useIsFocused();
+  const isTablet = useIsTablet();
 
   const {
     title = "",
@@ -88,7 +91,7 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
   useEffect(() => {
     if (isFocused && exerciseEnd) {
       const thingToSay =
-        "Well Done! The mouth exercises are completed, press the middle button to move on to speech exercises starting at level 1";
+        "Well Done! The mouth exercises are completed, press the button to move on to speech exercises starting at level 1";
       Speech.speak(thingToSay, {
         language: "en-AU",
       });
@@ -112,7 +115,7 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
   };
 
   return (
-    <View>
+    <View style={styles.appWrapper}>
       <View style={styles.container}>
         <IconCaretButton
           direction="caret-back"
@@ -124,18 +127,23 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
             <Text style={styles.largeText}>{title}</Text>
             <Image
               source={image}
-              style={{ width: 300, height: 150, borderRadius: 100 }}
+              style={{
+                width: isTablet ? 400 : 300,
+                height: isTablet ? 250 : 120,
+                borderRadius: 100,
+              }}
             />
           </View>
         ) : (
-          <View>
-            <Text style={styles.mediumText}>
-              Well Done! The mouth exercises are completed
+          <View style={styles.exerciseEndTextContainer}>
+            <Text
+              style={[styles.mediumText, { fontSize: isTablet ? 30 : 20 }]}
+              numberOfLines={4}
+            >
+              Well Done! The mouth exercises are completed. When you are ready,
+              press the button to move on to speech exercises starting at level
+              1.
             </Text>
-            <Button
-              title="Move on to the speech exercises starting at level 1"
-              onPress={() => navigation.jumpTo("Level 1")}
-            />
           </View>
         )}
 
@@ -146,9 +154,20 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
         />
       </View>
 
-      {!exerciseEnd && (
+      {exerciseEnd ? (
+        <View>
+          <VariableSizeButton
+            title="Move on to speech training at level 1"
+            onPress={() => navigation.jumpTo("Level 1")}
+            color="#3490dc"
+          />
+        </View>
+      ) : (
         <View style={styles.playSoundBtn}>
-          <Button title="Play description" onPress={onPlaySoundPress} />
+          <VariableSizeButton
+            title="Play description"
+            onPress={onPlaySoundPress}
+          />
         </View>
       )}
     </View>
@@ -156,11 +175,18 @@ export const Exercises = ({ navigation, isDescriptionMuted }: LevelProps) => {
 };
 
 const styles = StyleSheet.create({
+  appWrapper: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   container: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   txtImageContainer: {
     display: "flex",
@@ -171,6 +197,7 @@ const styles = StyleSheet.create({
   largeText: {
     fontSize: 40,
     fontWeight: "bold",
+    paddingBottom: 10,
   },
   mediumText: {
     fontSize: 20,
@@ -180,5 +207,8 @@ const styles = StyleSheet.create({
   playSoundBtn: {
     display: "flex",
     alignItems: "center",
+  },
+  exerciseEndTextContainer: {
+    width: 400,
   },
 });
